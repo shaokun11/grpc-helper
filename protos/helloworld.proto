@@ -1,0 +1,20 @@
+//第一行 有效的语句必须制定
+syntax = "proto3";
+
+// 定义一个服务
+service Greeter {
+    // 服务暴露的对外的接口
+    rpc SayHello (HelloRequest) returns (HelloReply) {
+    }
+    rpc Test (HelloRequest) returns (HelloReply) {
+    }
+}
+
+// 请求struct
+message HelloRequest {
+    string name = 1;
+}
+// 响应struct
+message HelloReply {
+    string message = 1;
+}
