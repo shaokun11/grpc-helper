@@ -1,9 +1,13 @@
 let grpc = require("grpc");
 const path = require("path");
 let protoLoader = require("@grpc/proto-loader");
-let PROTO_PATH = path.join(__dirname, "./protos/helloworld.proto");
+const klawSync = require('klaw-sync')
+let PROTO_PATH = path.join( "protos");
+const paths = klawSync(PROTO_PATH,{
+  nodir:true,
+})
 // protos的路径 ,可以传递多个
-let packageDefinition = protoLoader.loadSync(PROTO_PATH, {
+let packageDefinition = protoLoader.loadSync(paths.map(item=>item.path), {
   keepCase: true,
   longs: String,
   enums: String,

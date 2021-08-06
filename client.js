@@ -1,5 +1,5 @@
 let grpc = require("grpc");
-const {Greeter} = require("./comm");
+const {Greeter} = require("./src/comm");
 
 function main() {
   //实例化service
