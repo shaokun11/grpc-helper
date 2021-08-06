@@ -1,20 +1,34 @@
-//第一行 有效的语句必须制定
+// https://developers.google.com/protocol-buffers/docs/proto3?hl=ko#json
+// https://developers.google.com/protocol-buffers/docs/reference/proto3-spec
 syntax = "proto3";
 
-// 定义一个服务
+// https://developers.google.com/protocol-buffers/docs/proto3#packages-and-name-resolution
+package helloworld;
+
+// https://developers.google.com/protocol-buffers/docs/reference/google.protobuf
+import "google/protobuf/struct.proto";
+
+// https://developers.google.com/protocol-buffers/docs/style
 service Greeter {
-    // 服务暴露的对外的接口
-    rpc SayHello (HelloRequest) returns (HelloReply) {
-    }
-    rpc Test (HelloRequest) returns (HelloReply) {
-    }
+  rpc SayHello (HelloRequest) returns (HelloResponse);
+  rpc SayHelloStreamRequest (stream HelloRequest) returns (HelloResponse) {}
+  rpc SayHelloStreamResponse (HelloRequest) returns (stream HelloResponse) {}
+  rpc SayHelloStream (stream HelloRequest) returns (stream HelloResponse) {}
 }
 
-// 请求struct
 message HelloRequest {
-    string name = 1;
+  string name = 1;
+
+  google.protobuf.Struct param_struct = 2;
+  google.protobuf.ListValue param_list_value = 3;
+  google.protobuf.Value param_value = 4;
 }
-// 响应struct
-message HelloReply {
-    string message = 1;
+
+message HelloResponse {
+  string message = 1;
+  bool snake_case = 2;
+
+  google.protobuf.Struct param_struct = 3;
+  google.protobuf.ListValue param_list_value = 4;
+  google.protobuf.Value param_value = 5;
 }
