@@ -26,6 +26,7 @@ class Greeter implements IGreeterServer {
   public sayHelloComm(call: ServerUnaryCall<CommRequest, CommResponse>, callback: sendUnaryData<CommResponse>): void {
     console.log('comm request');
     const res = new CommResponse();
+    res.setCode('this is hello world' + Date.now().toString());
     callback(null, res);
   }
 
