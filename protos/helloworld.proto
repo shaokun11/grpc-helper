@@ -11,9 +11,18 @@ import "google/protobuf/struct.proto";
 // https://developers.google.com/protocol-buffers/docs/style
 service Greeter {
   rpc SayHello (HelloRequest) returns (HelloResponse);
+  rpc SayHelloComm (CommRequest) returns (CommResponse);
   rpc SayHelloStreamRequest (stream HelloRequest) returns (HelloResponse) {}
   rpc SayHelloStreamResponse (HelloRequest) returns (stream HelloResponse) {}
   rpc SayHelloStream (stream HelloRequest) returns (stream HelloResponse) {}
+}
+
+message  CommRequest {
+  string code = 1;
+}
+
+message  CommResponse {
+  string code = 1;
 }
 
 message HelloRequest {

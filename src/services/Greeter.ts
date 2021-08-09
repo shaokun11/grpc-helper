@@ -1,10 +1,17 @@
-import { sendUnaryData, ServerDuplexStream, ServerReadableStream, ServerUnaryCall, ServerWritableStream,
-  status, UntypedHandleCall } from '@grpc/grpc-js';
+import {
+  sendUnaryData,
+  ServerDuplexStream,
+  ServerReadableStream,
+  ServerUnaryCall,
+  ServerWritableStream,
+  status,
+  UntypedHandleCall,
+} from '@grpc/grpc-js';
 import { randomBytes } from 'crypto';
 import { Struct } from 'google-protobuf/google/protobuf/struct_pb';
 
 import { GreeterService, IGreeterServer } from '../../models/helloworld_grpc_pb';
-import { HelloRequest, HelloResponse } from '../../models/helloworld_pb';
+import { CommRequest, CommResponse, HelloRequest, HelloResponse } from '../../models/helloworld_pb';
 import { logger, ServiceError } from '../utils';
 
 /**
@@ -15,6 +22,12 @@ class Greeter implements IGreeterServer {
   // Argument of type 'Greeter' is not assignable to parameter of type 'UntypedServiceImplementation'.
   // Index signature is missing in type 'Greeter'.ts(2345)
   [method: string]: UntypedHandleCall;
+
+  public sayHelloComm(call: ServerUnaryCall<CommRequest, CommResponse>, callback: sendUnaryData<CommResponse>): void {
+    console.log('comm request');
+    const res = new CommResponse();
+    callback(null, res);
+  }
 
   /**
    * Implements the SayHello RPC method.
@@ -31,7 +44,7 @@ class Greeter implements IGreeterServer {
       return callback(new ServiceError(status.INVALID_ARGUMENT, 'InvalidValue'), null);
     }
     res.setSnakeCase(false);
-    res.setMessage("hello world");
+    res.setMessage('hello world');
     const paramStruct = call.request.getParamStruct();
     const paramListValue = call.request.getParamListValue();
     const paramValue = call.request.getParamValue();
