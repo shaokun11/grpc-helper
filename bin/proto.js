@@ -31,7 +31,7 @@ shell.exec(`grpc_tools_node_protoc ${protoConfig.join(' ')}`);
 const webProtoConfig = [
   `--plugin="protoc-gen-ts=${PROTOC_GEN_TS_WEB_PATH}" `,
   `--js_out="import_style=commonjs,binary:${MODEL_WEB_DIR}" `,
-  `--grpc-web_out=import_style=commonjs+dts,mode=grpcwebtext:${MODEL_WEB_DIR} `,
+  `--grpc-web_out=import_style=commonjs+dts,mode=grpcweb:${MODEL_WEB_DIR} `,
   `--proto_path ${PROTO_DIR} ${PROTO_DIR}/*.proto`,
 ];
 shell.exec(`grpc_tools_node_protoc ${webProtoConfig.join(' ')}`);
